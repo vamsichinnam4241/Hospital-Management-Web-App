@@ -151,7 +151,7 @@ export default function BookingSystem() {
           <div className="space-y-8">
             {/* Date Selection */}
             <div>
-              <label className="text-sm font-bold text-gray-700 mb-4 block flex items-center gap-2">
+              <label className="text-sm font-bold text-black mb-4 block flex items-center gap-2">
                 <CalendarIcon className="h-4 w-4 text-blue-600" />
                 Select Date
               </label>
@@ -179,7 +179,7 @@ export default function BookingSystem() {
 
             {/* Time Slot Selection */}
             <div>
-              <label className="text-sm font-bold text-gray-700 mb-4 block flex items-center gap-2">
+              <label className="text-sm font-bold text-black mb-4 block flex items-center gap-2">
                 <Clock className="h-4 w-4 text-blue-600" />
                 Available Slots for {format(selectedDate, 'MMM d')}
               </label>
@@ -213,22 +213,22 @@ export default function BookingSystem() {
           <form onSubmit={handleBook} className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-2">
-                <label className="text-sm font-bold text-gray-700">Full Name</label>
+                <label className="text-sm font-bold text-black">Full Name</label>
                 <input 
                   type="text" 
                   required 
-                  className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-500" 
+                  className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-500 text-black placeholder:text-gray-400" 
                   placeholder="John Doe" 
                   value={formData.name}
                   onChange={(e) => setFormData({...formData, name: e.target.value})}
                 />
               </div>
               <div className="space-y-2">
-                <label className="text-sm font-bold text-gray-700">Phone Number</label>
+                <label className="text-sm font-bold text-black">Phone Number</label>
                 <input 
                   type="tel" 
                   required 
-                  className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-500" 
+                  className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-500 text-black placeholder:text-gray-400" 
                   placeholder="+91 XXXXX XXXXX" 
                   value={formData.phone}
                   onChange={(e) => setFormData({...formData, phone: e.target.value})}
@@ -236,10 +236,10 @@ export default function BookingSystem() {
               </div>
             </div>
             <div className="space-y-2">
-              <label className="text-sm font-bold text-gray-700">Consultation Reason</label>
+              <label className="text-sm font-bold text-black">Consultation Reason</label>
               <textarea 
                 rows={3} 
-                className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-500" 
+                className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-500 text-black placeholder:text-gray-400" 
                 placeholder="e.g. Regular heart checkup, chest pain, etc."
                 value={formData.reason}
                 onChange={(e) => setFormData({...formData, reason: e.target.value})}

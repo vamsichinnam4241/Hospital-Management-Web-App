@@ -143,16 +143,16 @@ export default function PatientCorner() {
             <div className="h-16 w-16 bg-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
               <Lock className="h-8 w-8 text-white" />
             </div>
-            <h1 className="text-2xl font-bold text-gray-900">Doctor Login</h1>
-            <p className="text-gray-500 text-sm mt-2">Access patient appointments.</p>
+            <h1 className="text-2xl font-bold text-black">Doctor Login</h1>
+            <p className="text-black text-sm mt-2">Access patient appointments.</p>
           </div>
 
           <form onSubmit={handleLogin} className="space-y-4">
             <div>
-              <label className="text-xs font-bold text-gray-700 uppercase tracking-wider">Username</label>
+              <label className="text-xs font-bold text-black uppercase tracking-wider">Username</label>
               <input 
                 type="text" 
-                className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-600 outline-none mt-1"
+                className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-600 outline-none mt-1 text-black placeholder:text-gray-400"
                 placeholder="Enter username"
                 autoComplete="username"
                 value={username}
@@ -161,10 +161,10 @@ export default function PatientCorner() {
               />
             </div>
             <div>
-              <label className="text-xs font-bold text-gray-700 uppercase tracking-wider">Password</label>
+              <label className="text-xs font-bold text-black uppercase tracking-wider">Password</label>
               <input 
                 type="password" 
-                className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-600 outline-none mt-1"
+                className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-600 outline-none mt-1 text-black placeholder:text-gray-400"
                 placeholder="Enter password"
                 autoComplete="current-password"
                 value={password}
@@ -191,9 +191,9 @@ export default function PatientCorner() {
         <div className="max-w-6xl mx-auto flex justify-between items-center">
           <div className="flex items-center gap-3">
             <div className="h-8 w-8 bg-blue-600 rounded flex items-center justify-center text-white font-bold text-sm">ST</div>
-            <h2 className="font-bold text-gray-900 text-sm">Dr. Suresh Terli</h2>
+            <h2 className="font-bold text-black text-sm">Dr. Suresh Terli</h2>
           </div>
-          <button onClick={handleLogout} className="text-xs text-gray-400 hover:text-red-600 font-bold flex items-center gap-1.5 transition-colors">
+          <button onClick={handleLogout} className="text-xs text-black hover:text-red-600 font-bold flex items-center gap-1.5 transition-colors">
             <LogOut className="h-4 w-4" /> Logout
           </button>
         </div>
@@ -202,12 +202,12 @@ export default function PatientCorner() {
       <main className="flex-1 p-4 md:p-8">
         <div className="max-w-5xl mx-auto">
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
-            <h1 className="text-xl font-bold text-gray-900">Appointments ({appointments.length})</h1>
+            <h1 className="text-xl font-bold text-black">Appointments ({appointments.length})</h1>
             <div className="relative w-full sm:w-72">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-black" />
               <input 
                 type="text" 
-                className="w-full pl-10 pr-4 py-2 text-sm rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-600 outline-none"
+                className="w-full pl-10 pr-4 py-2 text-sm rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-600 outline-none text-black placeholder:text-gray-400"
                 placeholder="Search patient..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
@@ -224,8 +224,8 @@ export default function PatientCorner() {
                       <User className="h-5 w-5" />
                     </div>
                     <div>
-                      <h3 className="font-bold text-gray-900 leading-none mb-1">{apt.name}</h3>
-                      <p className="text-xs text-gray-500 font-medium">{apt.phone}</p>
+                      <h3 className="font-bold text-black leading-none mb-1">{apt.name}</h3>
+                      <p className="text-xs text-black font-medium">{apt.phone}</p>
                     </div>
                   </div>
                   <div className="flex gap-1.5">
@@ -248,15 +248,15 @@ export default function PatientCorner() {
 
                 <div className="grid grid-cols-2 gap-3 mb-4">
                   <div className="bg-gray-50 p-2.5 rounded-xl border border-gray-100">
-                    <p className="text-[9px] font-bold text-gray-400 uppercase mb-1">Schedule</p>
-                    <div className="flex items-center gap-1.5 text-[11px] font-bold text-gray-700">
+                    <p className="text-[9px] font-bold text-black uppercase mb-1">Schedule</p>
+                    <div className="flex items-center gap-1.5 text-[11px] font-bold text-black">
                       <Calendar className="h-3 w-3 text-blue-500" />
                       {apt.date}
                     </div>
                   </div>
                   <div className="bg-gray-50 p-2.5 rounded-xl border border-gray-100">
-                    <p className="text-[9px] font-bold text-gray-400 uppercase mb-1">Time Slot</p>
-                    <div className="flex items-center gap-1.5 text-[11px] font-bold text-gray-700">
+                    <p className="text-[9px] font-bold text-black uppercase mb-1">Time Slot</p>
+                    <div className="flex items-center gap-1.5 text-[11px] font-bold text-black">
                       <Clock className="h-3 w-3 text-blue-500" />
                       {apt.time}
                     </div>
@@ -268,7 +268,7 @@ export default function PatientCorner() {
                     <MessageSquare className="h-3 w-3" />
                     Reason & Note
                   </div>
-                  <p className="text-[11px] text-gray-600 leading-relaxed line-clamp-2 italic">
+                  <p className="text-[11px] text-black leading-relaxed line-clamp-2 italic">
                     {apt.reason}: "{apt.message}"
                   </p>
                 </div>

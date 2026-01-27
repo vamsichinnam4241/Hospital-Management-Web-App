@@ -5,6 +5,7 @@ import { format, addDays, startOfToday, isSameDay, getDay } from 'date-fns';
 import { Calendar as CalendarIcon, Clock, CheckCircle2, AlertCircle } from 'lucide-react';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
+import { supabase } from '@/utils/supabase';
 
 function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -52,20 +53,39 @@ export default function BookingSystem() {
 
     const whatsappUrl = `https://wa.me/917680804241?text=${message}`;
 
-    // Save appointment locally for the Doctor's dashboard
-    const newAppointment = {
-      id: Date.now(),
-      name: formData.name,
-      phone: formData.phone,
-      date: format(selectedDate, 'yyyy-MM-dd'),
-      time: selectedSlot,
-      reason: formData.reason || 'General Checkup',
-      message: formData.reason || 'No message provided',
-      status: 'pending'
-    };
+    // Save appointment to Supabase for the Doctor's dashboard
+    try {
+      const { error } = await supabase
+        .from('appointments')
+        .insert([
+          {
+            name: formData.name,
+            phone: formData.phone,
+            appointment_date: format(selectedDate, 'yyyy-MM-dd'),
+            appointment_time: selectedSlot,
+            reason: formData.reason || 'General Checkup',
+            note: formData.reason || 'No message provided',
+            status: 'pending'
+          }
+        ]);
 
-    const existingAppointments = JSON.parse(localStorage.getItem('terlis_appointments') || '[]');
-    localStorage.setItem('terlis_appointments', JSON.stringify([...existingAppointments, newAppointment]));
+      if (error) throw error;
+    } catch (err) {
+      console.error('Error saving to Supabase:', err);
+      // Fallback to local storage if DB fails for now
+      const newAppointment = {
+        id: Date.now(),
+        name: formData.name,
+        phone: formData.phone,
+        date: format(selectedDate, 'yyyy-MM-dd'),
+        time: selectedSlot,
+        reason: formData.reason || 'General Checkup',
+        message: formData.reason || 'No message provided',
+        status: 'pending'
+      };
+      const existingAppointments = JSON.parse(localStorage.getItem('terlis_appointments') || '[]');
+      localStorage.setItem('terlis_appointments', JSON.stringify([...existingAppointments, newAppointment]));
+    }
 
     // Open WhatsApp in a new tab
     window.open(whatsappUrl, '_blank');

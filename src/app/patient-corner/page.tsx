@@ -14,33 +14,71 @@ import {
   CheckCircle,
   Trash2
 } from 'lucide-react';
+import { supabase } from '@/utils/supabase';
 
 export default function PatientCorner() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isCheckingSession, setIsCheckingSession] = useState(true);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [appointments, setAppointments] = useState<any[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
 
+  // Persist login state
+  useEffect(() => {
+    const savedLogin = localStorage.getItem('terlis_admin_logged_in');
+    if (savedLogin === 'true') {
+      setIsLoggedIn(true);
+    }
+    setIsCheckingSession(false);
+  }, []);
+
   // Load appointments and listen for updates
   useEffect(() => {
-    const loadAppointments = () => {
-      const saved = localStorage.getItem('terlis_appointments');
-      if (saved) {
-        setAppointments(JSON.parse(saved).reverse());
+    const fetchAppointments = async () => {
+      const { data, error } = await supabase
+        .from('appointments')
+        .select('*')
+        .eq('status', 'pending')
+        .order('created_at', { ascending: false });
+
+      if (error) {
+        console.error('Error fetching from Supabase:', error);
+        // Fallback to localStorage
+        const saved = localStorage.getItem('terlis_appointments');
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          setAppointments(parsed.sort((a: any, b: any) => b.id - a.id));
+        }
+      } else {
+        setAppointments(data.map(apt => ({
+          id: apt.id,
+          name: apt.name,
+          phone: apt.phone,
+          date: apt.appointment_date,
+          time: apt.appointment_time,
+          reason: apt.reason,
+          message: apt.note
+        })));
       }
     };
 
     if (isLoggedIn) {
-      loadAppointments();
-      // Listen for changes from other tabs (Auto-update)
-      window.addEventListener('storage', loadAppointments);
-      // Also poll every 5 seconds for local changes in the same tab
-      const interval = setInterval(loadAppointments, 5000);
+      fetchAppointments();
+
+      // Real-time listener for Supabase
+      const channel = supabase
+        .channel('schema-db-changes')
+        .on(
+          'postgres_changes',
+          { event: '*', schema: 'public', table: 'appointments' },
+          () => fetchAppointments()
+        )
+        .subscribe();
+
       return () => {
-        window.removeEventListener('storage', loadAppointments);
-        clearInterval(interval);
+        supabase.removeChannel(channel);
       };
     }
   }, [isLoggedIn]);
@@ -49,6 +87,7 @@ export default function PatientCorner() {
     e.preventDefault();
     if (username === 'terlis111' && password === '123456') {
       setIsLoggedIn(true);
+      localStorage.setItem('terlis_admin_logged_in', 'true');
       setError('');
     } else {
       setError('Invalid username or password');
@@ -57,20 +96,44 @@ export default function PatientCorner() {
 
   const handleLogout = () => {
     setIsLoggedIn(false);
+    localStorage.removeItem('terlis_admin_logged_in');
     setUsername('');
     setPassword('');
   };
 
-  const markAsCompleted = (id: number) => {
-    const updated = appointments.filter(apt => apt.id !== id);
-    setAppointments(updated);
-    localStorage.setItem('terlis_appointments', JSON.stringify(updated.reverse()));
+  const markAsCompleted = async (id: any) => {
+    // If it's a number (Supabase ID), update in DB
+    if (typeof id === 'number') {
+      const { error } = await supabase
+        .from('appointments')
+        .update({ status: 'completed' })
+        .eq('id', id);
+      
+      if (error) console.error('Error updating status:', error);
+    } else {
+      // LocalStorage fallback
+      const saved = localStorage.getItem('terlis_appointments');
+      if (saved) {
+        const current = JSON.parse(saved);
+        const updated = current.filter((apt: any) => apt.id !== id);
+        localStorage.setItem('terlis_appointments', JSON.stringify(updated));
+        setAppointments(updated.sort((a: any, b: any) => b.id - a.id));
+      }
+    }
   };
 
   const filteredAppointments = appointments.filter(apt => 
     apt.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
     apt.phone.includes(searchQuery)
   );
+
+  if (isCheckingSession) {
+    return (
+      <div className="min-h-screen bg-blue-50 flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+      </div>
+    );
+  }
 
   if (!isLoggedIn) {
     return (
@@ -90,7 +153,8 @@ export default function PatientCorner() {
               <input 
                 type="text" 
                 className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-600 outline-none mt-1"
-                placeholder="terlis111"
+                placeholder="Enter username"
+                autoComplete="username"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 required
@@ -101,7 +165,8 @@ export default function PatientCorner() {
               <input 
                 type="password" 
                 className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-600 outline-none mt-1"
-                placeholder="••••••"
+                placeholder="Enter password"
+                autoComplete="current-password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required

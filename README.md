@@ -1,4 +1,4 @@
-# 🏥 Hospital Management Web App
+# Hospital Management Web App
 
 A modern **Hospital Management Web Application** designed to simplify and organize hospital operations through a centralized digital platform.
 
@@ -6,52 +6,53 @@ The application provides an easy-to-use interface for managing patients, doctors
 
 ---
 
-## 📌 Overview
+## Overview
 
 The **Hospital Management Web App** is a full-stack web application that aims to reduce manual hospital management processes by providing a centralized system for managing healthcare-related data.
 
 It allows hospital staff and users to interact with essential hospital services through a responsive and user-friendly web interface.
+Web based app Link: https://hospital-eight-mu.vercel.app/
 
 ---
 
-## ✨ Features
+## Features
 
-* 👨‍⚕️ **Doctor Management**
+*  **Doctor Management**
 
   * Add and manage doctor information
   * View doctor details
   * Manage doctor availability
 
-* 🧑‍🤝‍🧑 **Patient Management**
+*  **Patient Management**
 
   * Register and manage patient information
   * View patient details
   * Maintain patient records
 
-* 📅 **Appointment Management**
+*  **Appointment Management**
 
   * Schedule appointments
   * View upcoming appointments
   * Manage appointment information
 
-* 🔐 **Authentication & Authorization**
+*  **Authentication & Authorization**
 
   * Secure user authentication
   * Role-based access where applicable
 
-* 📊 **Dashboard**
+*  **Dashboard**
 
   * Centralized overview of hospital activities
   * Display important statistics and information
 
-* 📱 **Responsive Design**
+*  **Responsive Design**
 
   * Works across desktop, tablet, and mobile devices
   * User-friendly interface
 
 ---
 
-## 🛠️ Tech Stack
+##  Tech Stack
 
 ### Frontend
 
@@ -79,7 +80,7 @@ It allows hospital staff and users to interact with essential hospital services 
 
 ---
 
-## 🏗️ Project Structure
+## Project Structure
 
 ```text
 Hospital-Management-Web-App/
@@ -176,27 +177,27 @@ The application should now be available at the local development URL shown in yo
 
 ---
 
-## 🔑 Core Modules
+## Core Modules
 
-### 👨‍⚕️ Doctor Module
+### Doctor Module
 
 The doctor module allows hospital administrators or authorized users to manage doctor information, including profiles and availability.
 
-### 🧑‍🤝‍🧑 Patient Module
+### Patient Module
 
 The patient module provides functionality for registering and managing patient information and records.
 
-### 📅 Appointment Module
+### Appointment Module
 
 The appointment module allows users to schedule and manage appointments between doctors and patients.
 
-### 📊 Dashboard
+### Dashboard
 
 The dashboard provides an overview of important hospital information and activities in one place.
 
 ---
 
-## 🔒 Security
+## Security
 
 The application is designed with common web application security practices in mind, including:
 
@@ -209,7 +210,7 @@ The application is designed with common web application security practices in mi
 
 ---
 
-## 📸 Screenshots
+## Screenshots
 
 Add screenshots of your application here.
 
@@ -231,7 +232,7 @@ Add screenshots of your application here.
 
 ---
 
-## 🔮 Future Improvements
+## Future Improvements
 
 Possible future enhancements include:
 
@@ -248,7 +249,7 @@ Possible future enhancements include:
 
 ---
 
-## 🤝 Contributing
+## Contributing
 
 Contributions are welcome.
 
@@ -281,7 +282,7 @@ Then open a Pull Request.
 
 ---
 
-## 📄 License
+## License
 
 This project is developed for educational and portfolio purposes.
 
@@ -289,7 +290,7 @@ Add your preferred license here if the project uses one.
 
 ---
 
-## 👨‍💻 Author
+## Author
 
 **Your Name**
 
@@ -297,5 +298,4 @@ Add your preferred license here if the project uses one.
 * LinkedIn: [Your LinkedIn](https://www.linkedin.com/in/YOUR_USERNAME)
 
 ---
-
-⭐ If you found this project useful, consider giving the repository a star!
+ If you found this project useful, consider giving the repository a star!
